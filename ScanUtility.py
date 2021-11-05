@@ -4,6 +4,7 @@
 import sys
 import struct
 import bluetooth._bluetooth as bluez
+from datetime import datetime
 import os
 
 OGF_LE_CTL=0x08
@@ -102,21 +103,16 @@ def parse_events(sock, loop_count=100):
             if uuid != '78e3b374-a079-4011-a999-62da95809bba':
                 return None
             major = dataString[78:82]
-            minor = dataString[82:86]
+            minor = dataString[82:85]
             majorVal = int("".join(major.split()[::-1]), 16)
             minorVal = int("".join(minor.split()[::-1]), 16)
-            """
-            Organises Mac Address to display properly
-            """
-            scrambledAddress = dataString[14:26]
-            fixStructure = iter("".join(reversed([scrambledAddress[i:i+2] for i in range(0, len(scrambledAddress), 2)])))
-            macAddress = ':'.join(a+b for a,b in zip(fixStructure, fixStructure))
-            if sys.version_info[0] == 3:
-                rssi, = struct.unpack("b", bytes([packet[packetOffset-1]]))
-            else:
-                rssi, = struct.unpack("b", packet[packetOffset-1])
 
-            resultsArray = [{"type": type, "uuid": uuid, "major": majorVal, "minor": minorVal, "rssi": rssi, "macAddress": macAddress}]
+            occupied_data = bin(int(dataString[85:86]))[-1]
+            device_id = major + minor
+
+            date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+            resultsArray = [{"type": type, "uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date-time": date_time}]
 
             return resultsArray
 
