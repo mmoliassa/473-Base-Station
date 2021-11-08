@@ -42,58 +42,10 @@ def parse_events(sock, loop_count=100):
         packetOffset = 0
         dataString = packetToString(packet)
         """
-        If the bluetooth device is an beacon then show the beacon.
+        If the bluetooth device is a beacon then show the beacon.
         """
         #print (dataString)
-        if (dataString[34:42] == '0303aafe') and (dataString[44:50] == '16AAFE'):
-            """
-            Selects parts of the bluetooth packets.
-            """
-            broadcastType = dataString[50:52]
-            if broadcastType == '00' :
-                type = "Eddystone UID"
-                namespace = dataString[54:74].upper()
-                instance = dataString[74:86].upper()
-                resultsArray = [
-                {"type": type, "namespace": namespace, "instance": instance}]
-                return resultsArray
-
-            elif broadcastType == '10':
-                type = "Eddystone URL"
-                urlprefix = dataString[54:56]
-                if urlprefix == '00':
-                    prefix = 'http://www.'
-                elif urlprefix == '01':
-                    prefix = 'https://www.'
-                elif urlprefix == '02':
-                    prefix = 'http://'
-                elif urlprefix == '03':
-                    prefix = 'https://'
-                hexUrl = dataString[56:][:-2]
-                if sys.version_info[0] == 3:
-                    url = prefix + bytes.fromhex(hexUrl).decode('utf-8')
-                    rssi, = struct.unpack("b", bytes([packet[packetOffset-1]]))
-                else:
-                    url = prefix + hexUrl.decode("hex")
-                    rssi, = struct.unpack("b", packet[packetOffset-1])
-                resultsArray = [{"type": type, "url": url}]
-                return resultsArray
-
-            elif broadcastType == '20':
-                type = "Eddystone TLM"
-                resultsArray = [{"type": type}]
-                return resultsArray
-
-            elif broadcastType == '30':
-                type = "Eddystone EID"
-                resultsArray = [{"type": type}]
-                return resultsArray
-
-            elif broadcastType == '40':
-                type = "Eddystone RESERVED"
-                resultsArray = [{"type": type}]
-                return resultsArray
-
+        
         if dataString[38:46] == '4c000215':
             """
             Selects parts of the bluetooth packets.
@@ -112,7 +64,7 @@ def parse_events(sock, loop_count=100):
 
             date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            resultsArray = [{"type": type, "uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date-time": date_time}]
+            resultsArray = [{"type": type, "uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date_time": date_time}]
 
             return resultsArray
 
