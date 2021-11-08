@@ -45,7 +45,7 @@ def parse_events(sock, loop_count=100):
         If the bluetooth device is a beacon then show the beacon.
         """
         #print (dataString)
-        
+
         if dataString[38:46] == '4c000215':
             """
             Selects parts of the bluetooth packets.
@@ -64,7 +64,7 @@ def parse_events(sock, loop_count=100):
 
             date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            resultsArray = [{"type": type, "uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date_time": date_time}]
+            resultsArray = [{"uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date_time": date_time}]
 
             return resultsArray
 
