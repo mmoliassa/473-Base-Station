@@ -1,12 +1,12 @@
 
 #### AWS PARAMETERS ####
 
-aws_host
-aws_port
-certificate_path
-key_path
-client_Id
-thing_name
+#aws_host
+#aws_port
+#certificate_path
+#key_path
+#client_Id
+#thing_name
 
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
@@ -19,9 +19,9 @@ import json
 # Define ENDPOINT, CLIENT_ID, PATH_TO_CERTIFICATE, PATH_TO_PRIVATE_KEY, PATH_TO_AMAZON_ROOT_CA_1, MESSAGE, TOPIC, and RANGE
 ENDPOINT = "a37k12jmh4irr5-ats.iot.us-west-2.amazonaws.com"
 CLIENT_ID = "pi_gateway"
-PATH_TO_CERTIFICATE = "certificates/a1b23cd45e-certificate.pem.crt"
-PATH_TO_PRIVATE_KEY = "certificates/a1b23cd45e-private.pem.key"
-PATH_TO_AMAZON_ROOT_CA_1 = "certificates/root.pem"
+PATH_TO_CERTIFICATE = "aws_pi_certificates/pi-certificate.pem.crt"
+PATH_TO_PRIVATE_KEY = "aws_pi_certificates/pi-private.pem.key"
+PATH_TO_AMAZON_ROOT_CA_1 = "aws_pi_certificates/AmazonRootCA1.pem"
 TOPIC = "occupancyMonitor/occupancyData"
 RANGE = 20
 
