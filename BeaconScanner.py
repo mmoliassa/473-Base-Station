@@ -23,8 +23,10 @@ try:
 		returnedList = ScanUtility.parse_events(sock, 10)
 		if returnedList is None:
 			continue
-		PublishData.publishMessage(mqtt_connection, returnedList)
+		#print(returnedList)
+		#PublishData.publishMessage(mqtt_connection, returnedList)
 		for item in returnedList:
+			PublishData.publishMessage(mqtt_connection, item)
 			print(item)
 			print("")
 except KeyboardInterrupt:
