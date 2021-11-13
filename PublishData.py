@@ -1,13 +1,4 @@
-
-#### AWS PARAMETERS ####
-
-#aws_host
-#aws_port
-#certificate_path
-#key_path
-#client_Id
-#thing_name
-
+# Modified from Amazon code sample
 # Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 # SPDX-License-Identifier: MIT-0
 
@@ -51,7 +42,7 @@ def initialize_resources():
 
 def publishMessage(mqtt_connection, messageData):
     # Publish message to server desired number of times.
-    mqtt_connection.publish(topic=TOPIC, payload=json.dumps(messageData), qos=mqtt.QoS.AT_LEAST_ONCE)
+    mqtt_connection.publish(topic=TOPIC, payload=json.dumps(messageData[0]), qos=mqtt.QoS.AT_LEAST_ONCE)
 
 def disconnect(mqtt_connection):
     print('Publish End')

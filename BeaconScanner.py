@@ -23,6 +23,7 @@ try:
 		returnedList = ScanUtility.parse_events(sock, 10)
 		if returnedList is None:
 			continue
+		print(returnedList)
 		PublishData.publishMessage(mqtt_connection, returnedList)
 		for item in returnedList:
 			print(item)
