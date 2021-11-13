@@ -1,5 +1,5 @@
 #This is a working prototype. DO NOT USE IT IN LIVE PROJECTS
-
+import sys
 import ScanUtility
 import PublishData
 import bluetooth._bluetooth as bluez
@@ -15,19 +15,30 @@ except:
 
 ScanUtility.hci_enable_le_scan(sock)
 #Scans for iBeacons
-
-mqtt_connection = PublishData.initialize_resources()
+while True:
+	try:
+		#print("test1")
+		mqtt_connection = PublishData.initialize_resources()
+		#print("test2")
+		break
+	except KeyboardInterrupt:
+		sys.exit()
+	except:
+		#print("testing")
+		continue
 
 try:
 	while True:
 		returnedList = ScanUtility.parse_events(sock, 10)
 		if returnedList is None:
 			continue
-		print(returnedList)
-		PublishData.publishMessage(mqtt_connection, returnedList)
 		for item in returnedList:
+			PublishData.publishMessage(mqtt_connection, item)
 			print(item)
 			print("")
 except KeyboardInterrupt:
+	PublishData.disconnect(mqtt_connection)
+	pass
+except:
 	PublishData.disconnect(mqtt_connection)
 	pass
