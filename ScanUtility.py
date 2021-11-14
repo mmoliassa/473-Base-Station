@@ -64,7 +64,8 @@ def parse_events(sock, loop_count=100):
 
             date_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            resultsArray = [{"uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date_time": date_time}]
+            #resultsArray = [{"uuid": uuid, "major": majorVal, "minor": minorVal, "device_id": device_id, "occupied_data": occupied_data, "date_time": date_time}]
+            resultsArray = [{"device_id": device_id, "occupied_data": occupied_data, "date_time": date_time}]
 
             return resultsArray
 
